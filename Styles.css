@@ -525,21 +525,6 @@ ul {
 	float: right;
 }
 
-/*Collapsible Lists*/
-.collapsibleList li {
-	cursor:default;
-}
-
-li.collapsibleListOpen {
-  list-style-image:url('images/button_open.png');
-  cursor:pointer;
-}
-
-li.collapsibleListClosed {
-  list-style-image:url('images/button_closed.png');
-  cursor:pointer;
-}
-
 /****Gallery****/
 
 .gallery {
