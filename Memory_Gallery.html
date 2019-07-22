@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<link href="styles.css" rel="stylesheet" type="text/css" media="all">
+<title>Memory Gallery</title>
+<script type="text/javascript">
+var year = ["2019", "2018", "2017"];
+
+var events2019 = ["2019 Event"];
+var events2018 = ["2018 Event"];
+var events2017 = ["2017 Event"];
+
+function yearChanged(year)
+{
+	var selectEvent = document.getElementById("event");
+	var ln = selectEvent.length - 1;
+	while (ln > 0)
+	{
+		selectEvent.remove(1);	//Remove all but "Select Event"
+		ln--;
+	}
+
+	var eventArray;
+
+	switch(year)
+	{
+		case "2019":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			eventArray = events2019
+			break;
+	 
+	case "2018":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			eventArray = events2018
+			break;
+	
+	case "2017":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			eventArray = events2017
+			break;
+
+		default:
+	}
+	
+	for (i = 0; i < eventArray.length; i++)
+	{
+		var option = document.createElement("option");
+		option.text = eventArray[i];
+		option.value = eventArray[i];
+		selectEvent.add(option);
+	}
+}
+
+function eventChanged(event) //2nd-level list items
+{
+
+	switch(event)
+	{
+		case "2019 Event":
+			document.getElementById("rightSupportPanel").innerHTML = "<div class='gallery'><div class='img'><a target='_blank' href='images/mem/max-baskakov-OzAeZPNsLXk-unsplash.jpg'><img src='images/mem/thumb002.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/erik-jan-leusink-IbPxGLgJiMI-unsplash.jpg'><img src='images/mem/thumb001.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/michael-sum-LEpfefQf4rU-unsplash.jpg'><img src='images/mem/thumb003.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/mikhail-vasilyev-NodtnCsLdTE-unsplash.jpg'><img src='images/mem/thumb004.bmp' alt='Image'></a></div></div>"
+			break;
+
+		case "2018 Event":
+			document.getElementById("rightSupportPanel").innerHTML = "<div class='gallery'><div class='img'><a target='_blank' href='images/mem/max-baskakov-OzAeZPNsLXk-unsplash.jpg'><img src='images/mem/thumb002.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/erik-jan-leusink-IbPxGLgJiMI-unsplash.jpg'><img src='images/mem/thumb001.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/michael-sum-LEpfefQf4rU-unsplash.jpg'><img src='images/mem/thumb003.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/mikhail-vasilyev-NodtnCsLdTE-unsplash.jpg'><img src='images/mem/thumb004.bmp' alt='Image'></a></div></div>"
+			break;
+
+		case "2017 Event":
+			document.getElementById("rightSupportPanel").innerHTML = "<div class='gallery'><div class='img'><a target='_blank' href='images/mem/max-baskakov-OzAeZPNsLXk-unsplash.jpg'><img src='images/mem/thumb002.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/erik-jan-leusink-IbPxGLgJiMI-unsplash.jpg'><img src='images/mem/thumb001.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/michael-sum-LEpfefQf4rU-unsplash.jpg'><img src='images/mem/thumb003.bmp' alt='Image'></a></div><div class='img'><a target='_blank' href='images/mem/mikhail-vasilyev-NodtnCsLdTE-unsplash.jpg'><img src='images/mem/thumb004.bmp' alt='Image'></a></div></div>"
+			break;
+
+		default:
+	}
+}
+</script>
+</head>
+
+<body>
+
+<header id="pageTitle">
+	<h1>Memory Gallery</h1>
+	<img src="Logo/opsite167w.png">
+</header>
+
+<nav id="menuBar">
+	<ul id="menu">
+		<li><a href="index.html" alt="Homepage" title="Homepage">Home</a></li>
+		<li><a href="Support.html" alt="OpSupport" title="OpSupport">OpSupport</a></li>
+		<li><a title="Community">Community</a>
+			<ul>
+				<li><a href="Announcements.html" alt="Announcements">Announcements</a></li>
+				<li><a href="Memory_Gallery.html" alt="Memory Gallery">Memory Gallery</a></li>
+				<li><a href="Reference_Newsletters.html" alt="Newsletters">Newsletters</a></li>
+			</ul>
+		</li>
+		<li><a title="Reference">Reference</a>
+			<ul>
+				<li><a href="Reference_Abbreviations.html" alt="Abbreviations">Abbreviations</a></li>
+				<li><a href="Reference_Glossary.html" alt="Glossary">Glossary</a></li>	
+				<li><a href="Docs/Writing_for_the_FRTIB.pdf" target="Docs/Writing_for_the_FRTIB.pdf"	alt="FRTIB Style Guide">FRTIB Style Guide</a></li>
+			</ul>
+		</li>
+		<li><a title="Contacts">Contacts</a>
+			<ul>
+				<li><a href="Contacts_OpsCenter.html" alt="Ops Center Contacts">Ops Center</a></li>
+				<li><a href="Contacts_FRTIB.html" alt="FRTIB Contacts">FRTIB</a></li>
+				<li><a href="Contacts_Support.html" alt="Support Contacts">Support</a></li>
+				<li><a href="Contacts_Other.html" alt="Other Contacts">Other</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+<div class="container">
+<!--Main body-->
+	<article id="supportWrapper">
+		
+
+	<!--First dropdown box-->
+		<table id="supportTable">
+			<tr>
+				<td id="leftSupportPanel">
+				<!--Selections-->
+					<select id='year' name='year' onchange='yearChanged(this.value);'>
+						<option value='Select' selected>- Select a year -</option>
+						<option value='2019'>2019</option>
+						<option value='2018'>2018</option>
+						<option value='2017'>2017</option>
+					</select>
+					<br><br>
+
+					<select id='event' name='event' onchange='eventChanged(this.value);'>
+						<option>--</option>
+					</select>
+					<br><br>
+				</td>
+				<td id="rightSupportPanel"><p>Please use the drop-down menus below to find pictures and videos of past Ops Center events.</p></td>
+			</tr>
+		</table>
+	</article>
+</div>
+
+<footer class="copyright">
+		<p><a href="mailto:OpSite@fairoaks.serco-na.com">Contact OpSite</a></p>
+</footer>
+
+</body>
+</html>

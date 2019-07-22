@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<link href="styles.css" rel="stylesheet" type="text/css" media="all">
+<title>1Ops Newsletters</title>
+<script type="text/javascript">
+
+//Display Current Issue on Load
+window.onload = function showCurrentIssue() {
+	document.getElementById('rightSupportPanel').innerHTML = 'To display the current issue, edit the script in the HTML file. In the script, go to the <code>showCurrentIssue</code> function and enter the following between the .innerHTML</code> quotation marks: <code>&lt;embed type="application/pdf" width="100%" height="800px" src="[File path of current newsletter]"&gt;</code>.' 
+}
+
+var year = ["2019", "2018"];
+
+var months2019 = ["June 2019","May 2019","April 2019","March 2019","February 2019","January 2019"];
+var months2018 = ["December 2018", "November 2018","September 2018","July 2018","June 2018","May 2018","April 2018","March 2018","February 2018","January 2018"];
+
+function yearChanged(year)
+{
+	var selectMonth = document.getElementById("month");
+	var ln = selectMonth.length - 1;
+	while (ln > 0)
+	{
+		selectMonth.remove(1);	//Remove all but "Select Year"
+		ln--;
+	}
+	
+	var monthArray;
+
+	switch(year)
+	{
+		case "2019":
+			document.getElementById("rightSupportPanel").innerHTML = "<p style='padding-left:1em'>Please select a month</p>";
+			monthArray = months2019
+			break;
+		case "2018":
+			document.getElementById("rightSupportPanel").innerHTML = "<p style='padding-left:1em'>Please select a month</p>";
+			monthArray = months2018
+			break;
+		default:
+	}
+
+	for (i = 0; i < monthArray.length; i++)
+	{
+		var option = document.createElement("option");
+		option.text = monthArray[i];
+		option.value = monthArray[i];
+		selectMonth.add(option);
+	}
+}
+
+function monthChanged(month) //2nd-level list items
+{
+
+	switch(month)
+	{
+		case "June 2019":
+			document.getElementById("rightSupportPanel").innerHTML = "June 2019 Newsletter"
+				break;
+		case "May 2019":
+			document.getElementById("rightSupportPanel").innerHTML = "May 2019 Newsletter"
+				break;
+		case "April 2019":
+			document.getElementById("rightSupportPanel").innerHTML = "April 2019 Newsletter"
+				break;
+		case "March 2019":
+				document.getElementById("rightSupportPanel").innerHTML = "March 2019 Newsletter"
+				break;
+		case "February 2019":
+			document.getElementById("rightSupportPanel").innerHTML = "February 2019 Newsletter"
+				break;
+		case "January 2019":
+			document.getElementById("rightSupportPanel").innerHTML = "January 2019 Newsletter"
+				break;
+					
+		case "December 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "December 2018 Newsletter"
+				break;
+		case "November 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "November 2018 Newsletter"
+				break;
+		case "October 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "October 2018 Newsletter"
+				break;
+		case "September 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "September 2018 Newsletter"
+				break;
+		case "July 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "July 2018 Newsletter"
+			break;
+		case "June 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "June 2018 Newsletter"
+			break;
+		case "May 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "May 2018 Newsletter"
+			break;
+		case "April 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "April 2018 Newsletter"
+			break;
+		case "March 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "March 2018 Newsletter"
+			break;
+		case "February 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "February 2018 Newsletter"
+			break;
+		case "January 2018":
+			document.getElementById("rightSupportPanel").innerHTML = "January 2018 Newsletter"
+			break;
+
+		default:
+	}
+}
+
+</script>
+</head>
+
+<body>
+
+<header id="pageTitle">
+	<h1>Newsletters</h1>
+	<img src="Logo/opsite167w.png">
+</header>
+
+<nav id="menuBar">
+	<ul id="menu">
+		<li><a href="index.html" alt="Homepage" title="Homepage">Home</a></li>
+		<li><a href="Support.html" alt="OpSupport" title="OpSupport">OpSupport</a></li>
+		<li><a title="Community">Community</a>
+			<ul>
+				<li><a href="Announcements.html" alt="Announcements">Announcements</a></li>
+				<li><a href="Memory_Gallery.html" alt="Memory Gallery">Memory Gallery</a></li>
+				<li><a href="Reference_Newsletters.html" alt="Newsletters">Newsletters</a></li>
+			</ul>
+		</li>
+		<li><a title="Reference">Reference</a>
+			<ul>
+				<li><a href="Reference_Abbreviations.html" alt="Abbreviations">Abbreviations</a></li>
+				<li><a href="Reference_Glossary.html" alt="Glossary">Glossary</a></li>	
+				<li><a href="Docs/Writing_for_the_FRTIB.pdf" target="Docs/Writing_for_the_FRTIB.pdf"	alt="FRTIB Style Guide">FRTIB Style Guide</a></li>
+			</ul>
+		</li>
+		<li><a title="Contacts">Contacts</a>
+			<ul>
+				<li><a href="Contacts_OpsCenter.html" alt="Ops Center Contacts">Ops Center</a></li>
+				<li><a href="Contacts_FRTIB.html" alt="FRTIB Contacts">FRTIB</a></li>
+				<li><a href="Contacts_Support.html" alt="Support Contacts">Support</a></li>
+				<li><a href="Contacts_Other.html" alt="Other Contacts">Other</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+<!--Main body-->
+
+<div class="container">
+	<article id="supportWrapper">
+		<aside id="pastIssues">
+			<p style="margin: 0 1em .5em 0"><u>Past issues:</u></p>
+			<!--Selections-->
+			Year&nbsp;&nbsp;&nbsp;
+			<select style="margin-bottom: .5em" id='year' name='year' onchange='yearChanged(this.value);'>
+				<option value='Select' selected>- Select a year -</option>
+				<option value='2019'>2019</option>
+				<option value='2018'>2018</option>
+			</select>
+			<br>
+
+			Month&nbsp;
+			<select id='month' name='month' onchange='monthChanged(this.value);'>
+				<option>--</option>
+			</select>
+		</aside>
+		<section style="z-index:-1; padding-top: 2em" id="rightSupportPanel"></section>
+	</article>
+</div>
+
+<footer class="copyright">
+	<p class="copyDate">&#169;2019 Alan Strom</p>
+	<p class="contact">Changes? Suggestions? Contact <a href="*">OpSite</a>!</p>
+</footer>
+
+</body>
+</html>

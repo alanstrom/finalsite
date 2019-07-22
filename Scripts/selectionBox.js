@@ -1,0 +1,34 @@
+//radioBox
+	$(document).ready(function(){
+		$('input[type="radio"]').click(function(){
+			if($(this).attr("value")=="bathr"){
+				$(".Lbox").not(".bathr").hide();
+				$(".bathr").show();
+			}
+			if($(this).attr("value")=="kitch"){
+				$(".Lbox").not(".kitch").hide();
+				$(".kitch").show();
+			}
+			if($(this).attr("value")=="offic"){
+				$(".Lbox").not(".offic").hide();
+				$(".offic").show();	
+			}
+			if($(this).attr("value")=="devic"){
+				$(".Lbox").not(".devic").hide();
+				$(".devic").show();
+			}
+			if($(this).attr("value")=="passw"){
+				$(".Lbox").not(".passw").hide();
+				$(".passw").show();
+			}
+			if($(this).attr("value")=="softw"){
+				$(".Lbox").not(".softw").hide();
+				$(".softw").show();
+			}
+			if($(this).attr("value")=="suppl"){
+				$(".Lbox").not(".suppl").hide();
+				$(".suppl").show();
+			}
+			
+		});
+	});

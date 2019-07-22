@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<link href="styles.css" rel="stylesheet" type="text/css" media="all">
+<title>OpSupport</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript">
+
+//Issues
+
+var issuesHardware = ["Batch scanner", "Computer accessories", "Internet connection", "Letter-opener machine", "Microfilm reader", "Mail machine", "Printers / Scanners", "Telephone User Manual"];
+var issuesSoftware = ["FRTIB-owned software", "Serco-owned software"];
+var issuesSecurity = ["Badges"]
+var issuesBathroom = ["Toilet paper", "Toilets", "Hand soap", "Faucets / Sinks"];
+var issuesKitchen = ["Refrigerators", "Vending machine", "Coffee machine", "Sink area"];
+var issuesOffice = ["Structural concerns", "Lighting", "Room temperature", "Desk keys"];
+var issuesPassword = ["FRTIB-system passwords", "Corporate passwords", "Fair Oaks password"];
+var issuesSupply = ["Office supplies", "Kitchen supplies", "Bathroom supplies"];
+var issuesTraining = ["Serco Code of Conduct", "Cyber Awareness Challenge", "Rules of Behavior", "Privacy Act training"];
+
+//subIssues
+var subIssuesRefrigerator = ["Refrigerator/Freezer is not cold", "Refrigerator light bulb is out", "Refrigerator is gross"];
+var subIssuesSink = ["Kitchen faucet / sink", "Dishwasher", "Dish soap", "Sponge or dish brush"];
+var subIssuesVending = ["It ate my money!", "Purchased item is not dispensing", "Warm sodas", "My favorite item is out!"];
+var subIssuesCoffee = ["Coffee machine malfunctioning", "Restock coffee / tea / condiments"];
+var subIssuesBadge = ["Forgot your badge", "Lost your badge", "Request a visitor badge"];
+var subIssuesMail = ["Mail machine User Guide", "Other mail-machine issue"];
+var subIssuesFRTIBSoftware = ["AG", "API", "CaMS", "CODIS", "DeDIS", "DocXP", "DSUB", "EXP AG Scan", "OMNI", "OMNIPay", "PSR", "RightFax", "SANDD", "Savantage", "TRIS"];
+var subIssuesSercoSoftware = ["Acrobat", "Deltek", "Internet Explorer", "Microsoft Outlook", "Microsoft Windows", "Microsoft Word", "OurWorld", "SecureZIP", "SharePoint", "SnagIt", "SEE", "SEP"];
+var subIssuesPrinters = ["Mapping to a network printer", "Secure-print instructions", "Printer toner/ink is low or empty", "Paper needs to be restocked", "Printer or scanner is jammed"];
+var subIssuesFRTIBPassword = ["AG password", "SANDD password", "PSR password"];
+var subIssuesFOpassword = ["Change current Fair Oaks password", "Change expired Fair Oaks password"];
+var subIssuesRoB = ["Accessing IT Systems"];
+var subIssuesConduct = ["At a Glance", "Code of Conduct video"]
+
+//subSubIssues
+var subSubIssuesAcrobat = ["Creating a digital signature"];
+var subSubIssuesAG = ["Java not detected", "AG User Guide", "Other AG issues"];
+var subSubIssuesCaMS = ["'An error has occurred...'", "Other CaMS issue"];
+var subSubIssuesCODIS = ["CODIS says 'Out of memory'", "Other CODIS issue"];
+var subSubIssuesDeDIS = ["DeDIS says 'Out of memory'", "Other DeDIS issue"];
+var subSubIssuesDeltek = ["Charge codes", "Deltek malfunctioning", "Change current Deltek password"];
+var subSubIssuesDocXP = ["DocXP User Guide", "DocXP login credentials", "Error code '5'", "DocXP malfunctioning"];
+var subSubIssuesIE = ["'The page cannot be displayed'", "Other IE issue"];
+var subSubIssuesOurWorld = ["Unable to log into OurWorld", "Other OurWorld issue"];
+var subSubIssuesOutlook = ["Out-of-office message setup","How to access Webmail","Creating a signature block","Setting up a meeting"];
+var subSubIssuesPSR = ["PSR User Manual", "PSR not loading", "Other PSR issue"];
+var subSubIssuesSANDD = ["Reset SANDD password", "Unable to map to shared drives"]
+var subSubIssuesSANDDpass = ["Change current SANDD password", "Change expired SANDD password"];
+var subSubIssuesSecureZIP = ["Encrypting email attachments", "Other SecureZIP issue"];
+var subSubIssuesSEE = ["Unable to log on", "Other SEE issue"];
+var subSubIssuesSEP = ["Out-of-date antivirus definitions", "Other SEP issue"];
+var subSubIssuesSharePoint = ["SharePoint overview", "Other SharePoint issue"];
+
+var i;
+
+function topicChanged(topic)
+{
+	var selectIssue = document.getElementById("issues");
+	var ln = selectIssue.length - 1;
+	while (ln > 0)
+	{
+		selectIssue.remove(1);	//Remove all but "Select Issue"
+		ln--;
+	}
+
+	var selectSubIssue = document.getElementById("subIssues");
+	var ln = selectSubIssue.length - 1;
+	while (ln > 0)
+	{
+		selectSubIssue.remove(1);	//Remove all but "Select SubIssue"
+		ln--;
+	}
+
+	var selectSubSubIssue = document.getElementById("subSubIssues");
+	var ln = selectSubSubIssue.length - 1;
+	while (ln > 0)
+	{
+		selectSubSubIssue.remove(1);	//Remove all but "Select subSubIssue"
+		ln--;
+	}
+
+	var issueArray;
+
+	switch(topic)
+	{
+		case "Bathroom":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesBathroom
+			break;
+		case "Kitchen":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesKitchen
+			break;
+		case "OfficeSpaces":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesOffice
+			break;
+		case "Hardware":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesHardware
+			break;
+		case "Software":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesSoftware
+			break;
+		case "Passwords":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesPassword
+			break;
+		case "Supplies":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesSupply
+			break;
+		case "Training":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesTraining
+			break;
+		case "Security":
+			document.getElementById("rightSupportPanel").innerHTML = "See 2<sup>nd</sup> drop-down";
+			issueArray = issuesSecurity
+			break;
+		default:
+	}
+
+	for (i = 0; i < issueArray.length; i++)
+	{
+		var option = document.createElement("option");
+		option.text = issueArray[i];
+		option.value = issueArray[i];
+		selectIssue.add(option);
+	}
+}
+
+function issueChanged(issue) //2nd-level list items
+{
+	var selectSubIssue = document.getElementById("subIssues");
+	var ln = selectSubIssue.length - 1;
+	while (ln > 0)
+	{
+		selectSubIssue.remove(1);	//Remove all but "Select SubIssue"
+		ln--;
+	}
+
+	var selectSubSubIssue = document.getElementById("subSubIssues");
+	var ln = selectSubSubIssue.length - 1;
+	while (ln > 0)
+	{
+		selectSubSubIssue.remove(1);	//Remove all but "Select subSubIssue"
+		ln--;
+	}
+
+	var subIssueArray;
+
+	switch(issue)
+	{
+		//issuesSecurity
+		case "Badges":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesBadge
+			break;
+
+		//issuesKitchen
+		case "Refrigerators":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesRefrigerator
+			break;
+		case "Vending machine":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesVending
+			break;
+		case "Coffee machine":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesCoffee
+			break;
+		case "Sink area":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesSink
+			break;
+
+		//issuesBathroom
+		case "Toilet paper":
+			document.getElementById("rightSupportPanel").innerHTML = "If toilet paper is low or empty, please report the issue to <a href='*'>Support</a>, after you somehow manage to leave the bathroom."
+			break;
+		case "Toilets":
+			document.getElementById("rightSupportPanel").innerHTML = "If a toilet is being crappy, please report the issue to <a href='*'>Support</a>."
+			break;
+		case "Hand soap":
+			document.getElementById("rightSupportPanel").innerHTML = "If the soap dispenser is empty, please find another means to sanitize your hands, and then report the issue to <a href='*'>Support</a>.<br><br><section style='width: 550px' class='callout'><u>Did you know?</u> The building management company is responsible for refilling the hand soap in all bathrooms <i>except</i> the seventh-floor handicap bathroom (outside the training room). The day porter refills that hand soap using our own supplies as a courtesy.</section>"
+			break;
+		case "Faucets / Sinks":
+			document.getElementById("rightSupportPanel").innerHTML = "If a bathroom faucet or sink needs attention, please report the issue to <a href='*'>Support</a>."
+			break;
+
+		//issuesOffice
+		case "Structural concerns":
+			document.getElementById("rightSupportPanel").innerHTML = "Please report all structural issues, such as ceiling leaks, broken ceiling tiles, and interdimensional portals to <a href='*'>Support</a>."
+			break;
+		case "Lighting":
+			document.getElementById("rightSupportPanel").innerHTML = "To have a lightbulb replaced or removed, or if you have other lighting concerns, contact <a href='*'>Support</a>. For help putting up Christmas lights around your desk or office, please consult a friendly colleague."
+			break;
+		case "Room temperature":
+			document.getElementById("rightSupportPanel").innerHTML = "To submit a complaint about the room temperature around where you work, please email <a href='*'>Support</a>."
+			break;
+	case "Desk keys":
+			document.getElementById("rightSupportPanel").innerHTML = "If you need keys for your desk cabinets or drawers, email <a href='*'>Support</a> with your request. Please include your cubicle or desk number in the email."
+			break;
+	
+		//issuesPassword
+		case "FRTIB-system passwords":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesFRTIBPassword
+			break;
+		case "Corporate passwords":
+			document.getElementById("rightSupportPanel").innerHTML = "Your Serco corporate password controls access to a variety of Serco applications, such as <a href='*'>Deltek timesheets</a>, <a href='*'>corporate e-mail</a>, and the <a href='*'>OurTown</a> portal. Serco's IT service desk is responsible for assisting employees with creating and changing this password. This password expires every 90 days, but a few days before the expiration date you will begin receiving automated e-mails reminding you to change this password. <p>To change your Serco corporate password...</p><ol><li>Go to the <a href='*'>Password Manager</a> website.</li><li>Type in your <b>User Name</b> and the randomly-generated 'captcha' below it, and then click <img src='Images/Password_Manager_OK.jpg' class='inline' height='25' alt='OK'>.<ol style='list-style-type: lower-alpha'><li>If you're a first-time user of Password Manager, follow the instructions in <a href='<a href='*'>this document</a> to create a profile.</li></ol></li><img class='border' src='Images/Password_Manager_Main.jpg' height='350' alt='Main Screen'><li>On the Password Manager <i>Home</i> page, click <b>Manage My Passwords</b>.</li><img class='border' src='Images/Password_Manager_Menu.jpg' height='350' alt='Menu'><li>Type your <u>current</u> password into the <b>Password</b> field seen below, and then click&nbsp;<img src='Images/Password_Manager_Next.jpg' height='25' class='inline' alt='next'>.<br><img class='border' src='Images/Password_Manager_Proceed.jpg' height='250' alt='Proceed'></li><li>Type a password into the <b>New password</b> field, and again into the <b>Confirm new password</b> field. </li><li>Click&nbsp;<img src='Images/Password_Manager_Next.jpg' height='25' class='inline' alt='Next'>.<br><img class='border' src='Images/Password_Manager_New.jpg' height='300' alt='Enter new password'></li><li>You should receive the message below upon successfully changing your password.<br><img class='border' src='Images/Password_Manager_Success.jpg' height='300' alt='Success!'></li></ol>"
+			break;
+		case "Fair Oaks password":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesFOpassword;
+			break;
+
+		//issuesSoftware
+		case "FRTIB-owned software":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesFRTIBSoftware
+			break;
+		case "Serco-owned software":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesSercoSoftware
+			break;
+
+		//issuesHardware
+		case "Batch scanner":
+			document.getElementById("rightSupportPanel").innerHTML = "Please report all batch scanner issues to the <a href='*'>Support</a>."
+			break;
+		case "Computer accessories":
+			document.getElementById("rightSupportPanel").innerHTML = "Plese report all issues with your mouse, keyboard, monitor, or other computer peripheral to the <a href='*'>Support</a>."
+			break;
+		case "Internet connection":
+			document.getElementById("rightSupportPanel").innerHTML = "If you're unable to connect to the Internet, first make sure an ethernet cable is plugged in to your computer, and then reboot your computer. <p>If you're still unable to connect to the Internet after rebooting, please report the problem to the <a href='*'>Support</a>.</p>"
+			break;
+		case "Letter-opener machine":
+			document.getElementById("rightSupportPanel").innerHTML = "Please report all issues with the letter-opener machine to the <a href='*'>Support</a>."
+			break;
+		case "Microfilm reader":
+			document.getElementById("rightSupportPanel").innerHTML = "Please report all issues with the microfilm reader to the <a href='*'>Support</a>."
+			break;
+		case "Mail machine":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesMail
+			break;
+		case "Printers / Scanners":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesPrinters
+			break;
+		case "Telephone User Manual":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+
+		//issuesSupply
+		case "Office supplies":
+			document.getElementById("rightSupportPanel").innerHTML = "Contact <a href='*'>Support</a> if any of the following office supplies need to be ordered:<ul><li>Binder clips</li><li>Binders</li><li>Dry erase markers</li><li>Folders</li><li>Highlighters</li><li>Light bulbs</li><li>Monitor stands</li><li>Notepads</li><li>Paper clips</li><li>Pens</li><li>Pencils</li><li>Printer paper</li><li>Staplers and staples</li><li>Tape</li><li>Tape holders</li><li>Telephone headsets</li></ul></p>If you'd like to request an item, but you don't see it listed above, contact <a href='*'>Support</a> to see if it can be ordered."
+			break;
+		case "Kitchen supplies":
+			document.getElementById("rightSupportPanel").innerHTML = "Contact <a href='*'>Support</a> if any of the following kitchen supplies need to be ordered:<ul><li>Coffee, tea, and fixings</li><li>Dish sponge/brush</li><li>Dishwashing soap</li><li>Soda (soda machine)</li></ul>"
+			break;
+		case "Bathroom supplies":
+			document.getElementById("rightSupportPanel").innerHTML = "<ul><li>If hand soap needs to be ordered for the 7th floor handicapped restroom, please contact <a href='*'>Support</a>.</li><li>If hand soap needs to be ordered for any other restroom, please send a request to <a href='*'>Support</a></li><li>If air freshener needs to be ordered, please contact <a href='*'>Support</a>.</li></ul>"
+			break;
+
+		//issuesTraining
+		case "Serco Code of Conduct":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesConduct
+			break;
+		case "Cyber Awareness Challenge":
+			document.getElementById("rightSupportPanel").innerHTML = "To access the Cyber Awareness Challenge training module...<ol><li>Click <a href='Training/Cyber_Awareness_Challenge/start.htm' target='Training/Cyber_Awareness_Challenge/start.htm'><b><u>here</u></b></a>.</li><li>Once on the main Cyber Awareness Challenge page, click &quot;<b>Launch New CyberAwareness Challenge <u>Federal Version</u></b>&quot; under the &quot;<b>Federal Employees</b>&quot; heading (see image below).</li><img style='height: 450px' src='Training/Cyber_Awareness_Challenge/CAChomepage.jpg'></ol>"
+			break;
+		case "Rules of Behavior":
+			document.getElementById("rightSupportPanel").innerHTML = "See 3<sup>rd</sup> drop-down";
+			subIssueArray = subIssuesRoB
+			break;
+	case "Privacy Act training":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+
+		default:
+	}
+
+	for (i = 0; i < subIssueArray.length; i++)
+	{
+		var option = document.createElement("option"); 
+		option.text = subIssueArray[i];
+		option.value = subIssueArray[i];
+		selectSubIssue.add(option);
+	}
+}
+
+function subIssueChanged(subIssue) //3rd-level list items
+{
+	var selectSubSubIssue = document.getElementById("subSubIssues");
+	var ln = selectSubSubIssue.length - 1;
+	while (ln > 0)
+	{
+		selectSubSubIssue.remove(1);	//Remove all but "Select subSubIssue"
+		ln--;
+	}
+
+	var subSubIssueArray;
+
+	switch(subIssue)
+	{
+		//issuesHardware > subIssuesPrinters
+		case "Mapping to a network printer":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+		case "Secure-print instructions":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+		case "Printer toner/ink is low or empty":
+			document.getElementById("rightSupportPanel").innerHTML = "If a printer's toner or ink level is low or empty, please report the issue to the <a href='*'>Support</a>."
+			break;
+		case "Paper needs to be restocked":
+			document.getElementById("rightSupportPanel").innerHTML = "If more printer paper needs to be ordered, please submit a request to <a href='*'>Support</a>."
+			break;
+		case "Printer or scanner is jammed":
+			document.getElementById("rightSupportPanel").innerHTML = "If a printer or scanner is jammed, please put the baseball bat down, and kindly report the issue to the <a href='*'>Support</a>."
+			break;
+
+		//issuesHardware > subIssuesMail
+		case "Mail machine User Guide":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+		case "Other mail-machine issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For telephonic support, please contact Pitney Bowes at 1-877-213-7284.<br><br> For all other issues or questions related to the mail machine, please contact the <a href='*'>Support</a>."
+			break;
+
+		//issuesKitchen > subIssuesRefrigerator
+		case "Refrigerator/Freezer is not cold":
+			document.getElementById("rightSupportPanel").innerHTML = "Check to see if the temperature dial is at an appropriate setting (i.e., somewhere in the middle).<p>If the dial is set propertly, but the refrigerator is not getting any colder, report this issue to <a href='*'>Support</a>.</p>"
+			break;
+		case "Refrigerator light bulb is out":
+			document.getElementById("rightSupportPanel").innerHTML = "If the refrigerator light bulb needs to be replaced, please report the issue to <a href='*'>Support</a>."
+			break;
+		case "Refrigerator is gross":
+			document.getElementById("rightSupportPanel").innerHTML = "Even though the building cleaning company cleans our refrigerators once a month, they can still begin to stink soon after. <br><br>If you smell something unpleasant, and the next scheduled cleaning is more than a couple days away, please figure out the culprit and <b>throw it out. Thanks!"
+			break;
+
+		//issuesKitchen > subIssuesSink
+		case "Kitchen faucet / sink":
+			document.getElementById("rightSupportPanel").innerHTML = "Please report any issue with the kitchen faucet and/or sink to <a href='*'>Support</a>."
+			break;
+		case "Dishwasher":
+			document.getElementById("rightSupportPanel").innerHTML = "Please report any issue with the dishwasher to <a href='*'>Support</a>."
+			break;
+		case "Dish soap":
+			document.getElementById("rightSupportPanel").innerHTML = "If dish soap is low or empty, please submit a request to <a href='*'>Support</a> to have more ordered."
+			break;
+		case "Sponge or dish brush":
+			document.getElementById("rightSupportPanel").innerHTML = "If a sponge or dish brush needs to be replaced, and you're unable to find a replacement in the kitchen, please submit a request to <a href='*'>Support</a> to have more of the needed item ordered."
+			break;
+
+		//issuesKitchen > subIssuesCoffee
+		case "Coffee machine malfunctioning":
+			document.getElementById("rightSupportPanel").innerHTML = "Please report the issue to <a href='*'>Support</a>.<br><br> <section style='width: 550px' class='callout'><u>Did you know?</u> There are <b>three</b> Starbucks near us? One of them has a drive-thru!</section>"
+			break;
+		case "Restock coffee / tea / condiments":
+			document.getElementById("rightSupportPanel").innerHTML = "If we are running low on coffee, tea, or coffee/tea condiment, please submit a request to <a href='*'>Support</a> to have more of the needed item ordered."
+			break;
+
+		//issuesKitchen > subIssuesVending
+		case "It ate my money!":
+			document.getElementById("rightSupportPanel").innerHTML = "If a vending machine ate your money, please refrain from using violence, and instead report the issue to <a href='*'>Support</a>."
+			break;
+		case "Purchased item is not dispensing":
+			document.getElementById("rightSupportPanel").innerHTML = "If an item you purchased from a vending machine is being uncooperative, please report the issue to <a href='*'>Support</a>."
+			break;
+		case "Warm sodas":
+			document.getElementById("rightSupportPanel").innerHTML = "If you enjoy warm sodas, that's great, but most people prefer them cold, so please be courteous and report to <a href='*'>Support</a> that the vending machine isn't working."
+			break;
+		case "My favorite item is out!":
+			document.getElementById("rightSupportPanel").innerHTML = "If a vending machine is out of your favorite item, try a different item. You might like it! But also let <a href='*'>Support</a> know your soda is out."
+			break;
+
+		//issuesOffice > subIssuesBadge
+		case "Forgot your badge":
+			document.getElementById("rightSupportPanel").innerHTML = "If you don't have a badge because you forgot it at home or a known location, please submit a request for a temporary badge to <a href='*'>Support</a>."
+			break;
+		case "Lost your badge":
+			document.getElementById("rightSupportPanel").innerHTML = "If you don't have a badge, and you have no idea where it could be, please immediately report this to <a href='*'>Support</a>."
+			break;
+		case "Request a visitor badge":
+			document.getElementById("rightSupportPanel").innerHTML = "To request a visitor badge, please email a request to <a href='*'>Support</a> providing the name of the visitor and reason for their visit."
+			break;
+
+		//issuesPassword > subIssuesFRTIBPassword
+		case "AG password":
+			document.getElementById("rightSupportPanel").innerHTML = "<b>NOTE</b>: Your passwords for AG and PSR should be the same. If you change your AG password, make sure you're doing so to match your PSR password, or plan on changing your PSR password afterwards.<p><b>To change your AG password...</b><ol style='list-style-type:decimal'><li>Open AG by double-clicking the &quot;EXP AG&quot; icon on your desktop.</li><li>Enter your SINT ID and your current password.</li><li>On the left side of the screen, click <b>Change Password</b>.</li><li>Follow the directions on the screen for entering a new password.</li></ol></li>"
+			break;
+		case "PSR password":
+			document.getElementById("rightSupportPanel").innerHTML = "<u><b>NOTE</b></u>: Your passwords for PSR, AG, CaMS, CODIS, and DeDIS should be the same. Changing your password in PSR will automatically change it in AG, CaMS, CODIS, and DeDIS.<br><p><b>To change your password in PSR...</b></p><ol><li>Open PSR by double-clicking the PSR icon on your desktop.</li><li>To the right of the login area, click <b>Change your password</b>.</li><li>Enter your SINT ID. Make sure to type &quot;SINT&quot; in <u>all caps</u>.</li><li>Follow the on-screen directions for changing passwords.</li></ol>"
+			break;
+		case "SANDD password":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesSANDDpass
+			break;
+
+		//issuesPassword > subIssuesFOpassword
+		case "Change current Fair Oaks password":
+			document.getElementById("rightSupportPanel").innerHTML = "Your Fair Oaks password will allow you to use Microsoft Windows and connect to the Fair Oaks Ops Center network. Windows will automatically remind you to change this password up until its expiration date. After this password expires, you will be prevented from logging into Windows.<p>To change your Fair Oaks password <u>before</u> it has expired...</p><ul style='list-style-type:decimal'><li>Press <b>Ctrl+Alt+Delete</b> and click <b>Change a password...</b></li><img class='border' src='Images/CtrlAltDelete.jpg' height='250' alt=''><li>Select the icon of your user account.</li><li>Enter your <b>Username</b> (usually 'firstname.lastname'), <b>Old Password</b>, <b>New password</b>, and the new password again into the <b>Confirm password</b> field, and then click the right arrow.</li><img class='border' src='Images/changepassword.jpg' height='350' alt=''><li>A dialog box will pop up to inform you that your Symantec Endpoint Encryption (SEE) password has also changed. Click&nbsp;<b>OK</b>.</li><li>The screen should then say, &quot;Your password has been changed.&quot; Click&nbsp;<b>OK</b>.</li><img class='border' src='Images/passwordchanged.jpg' height='150' alt=''></ul>"
+			break;
+		case "Change expired Fair Oaks password":
+			document.getElementById("rightSupportPanel").innerHTML = "Your Fair Oaks password will allow you to use Microsoft Windows and connect to the Fair Oaks Ops Center network. Windows will automatically remind you to change this password up until its expiration date. After this password expires, you will be prevented from logging into Windows. <p>To change your Fair Oaks password <u>after</u> it has expired...</p><ul style='list-style-type:decimal'><li>After your computer boots up Windows, you will receive the below message. Click <b>OK</b>.<br><img class='border' src='Images/expiredpassword.jpg' height='125' alt=''></li><li>Enter your <b>Old Password</b>, <b>New password</b>, and the new password again into the <b>Confirm password</b> field, and then click the right arrow.<br><img class='border' src='Images/expiredpassword2.jpg' height='250' alt=''></li><li>A dialog box will pop up to inform you that your Symantec Endpoint Encryption (SEE) password has also changed. Click <b>OK</b>.</li><li>The screen should then say, &quot;Your password has been changed.&quot; Click <b>OK</b>.<br><img class='border' src='Images/passwordchanged.jpg' height='125' alt=''></li></ul>"
+			break;
+
+		//issuesSoftware > subIssuesFRTIBSoftware
+		case "AG":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesAG
+			break;
+		case "API":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues or questions related to API, please contact <a href='*'>Support</a>."
+			break;
+		case "CaMS":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesCaMS
+			break;
+		case "CODIS":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesCODIS
+			break;
+		case "DeDIS":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesDeDIS
+			break;
+		case "DocXP":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesDocXP
+			break;
+		case "DSUB":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues or questions related to DSUB, please contact <a href='*'>Support</a>."
+			break;
+		case "EXP AG Scan":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues or questions related to EXP AG Scan, please contact <a href='*'>Support</a>."
+			break;
+		case "OMNI":
+			document.getElementById("rightSupportPanel").innerHTML = "If OMNI is not functioning properly, or you're receiving error messages, please contact <a href='*'>Support</a>."
+			break;
+		case "OMNIPay":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues or questions related to OMNIPay, please contact <a href='*'>Support</a>."
+			break;
+		case "PSR":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesPSR
+			break;
+		case "RightFax":
+			document.getElementById("rightSupportPanel").innerHTML = "To report an issue with RightFax, including creating/resetting passwords, please contact the <a href='*'>Support</a>."
+			break;
+		case "SANDD":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesSANDD
+			break;
+		case "Savantage":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues or questions related to Savantage, please contact <a href='*'>Support</a>."
+			break;
+		case "TRIS":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues or questions related to TRIS, please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesSercoSoftware
+		case "Acrobat":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesAcrobat
+			break;
+		case "Deltek":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesDeltek
+			break;
+		case "Internet Explorer":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesIE
+			break;
+		case "Microsoft Outlook":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesOutlook
+			break;
+		case "Microsoft Windows":
+			document.getElementById("rightSupportPanel").innerHTML = "For any issue or question relating to the Windows operating system that is installed on your computer, please contact the <a href='*'>Support</a>."
+			break;
+		case "Microsoft Word":
+			document.getElementById("rightSupportPanel").innerHTML = "For questions or issues relating to formatting a document in Word, please attempt to resolve your issue by either searching the Internet or asking a colleague.<p>Many useful tips are also available in the program by pressing the <b>F1</b> key.</p><p>For more serious issues or concerns, please contact the <a href='*'>Support</a>."
+			break;
+		case "OurWorld":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesOurWorld
+			break;
+		case "SecureZIP":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesSecureZIP
+			break;
+		case "SharePoint":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesSharePoint
+			break;
+		case "SnagIt":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues relating to SnagIT, please try using the in-system Help reference by pressing <b>F1</b> within the application. <p>If you were unable to find a solution to your issue using SnagIt's Help reference, please contact the <a href='*'>Support</a>.</p>"
+			break;
+		case "SEE":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesSEE
+			break;
+		case "SEP":
+			document.getElementById("rightSupportPanel").innerHTML = "See 4<sup>th</sup> drop-down";
+			subSubIssueArray = subSubIssuesSEP
+			break;
+
+		//issuesTraining > subIssuesRoB
+		case "Accessing IT Systems":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+
+		//issuesTraining > subIssuesConduct
+		case "At a Glance":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+		case "Code of Conduct video":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+
+		default:
+	}
+
+	for (i = 0; i < subSubIssueArray.length; i++)
+	{
+		var option = document.createElement("option"); 
+		option.text = subSubIssueArray[i];
+		option.value = subSubIssueArray[i];
+		selectSubSubIssue.add(option);
+	}
+}
+
+function subSubIssueChanged(subSubIssue)//4th-level list items
+{
+	switch(subSubIssue)
+	{
+
+		//issuesSoftware > subIssuesFRTIBSoftware > subSubIssuesAG
+		case "Java not detected":
+			document.getElementById("rightSupportPanel").innerHTML = "If Java is not being detected in AG...<ul style='list-style: decimal'><li>Close all Internet Explorer windows and then reopen Internet Explorer.</li><li>Report the issue to <a href='*'>Support</a>.</li></ul>"
+			break;
+		case "AG User Guide":
+			document.getElementById("rightSupportPanel").innerHTML = "This content is currently unavailable."
+			break;
+		case "Other AG issues":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to AG, please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesFRTIBSoftware > subSubIssuesCaMS
+		case "'An error has occurred...'":
+			document.getElementById("rightSupportPanel").innerHTML = "If CaMS displays a message saying, <b>&quot;An error has occurred&quot;</b>...<ul style='list-style: decimal'><li>Close and reopen Internet Explorer.</li><li>If the error continues, try rebooting your computer.</li><li>If rebooting your computer did not fix the error, please report the error to <a href='*'>Support</a>.</li></ul>"
+			break;
+		case "Other CaMS issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to CaMS, please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesFRTIBSoftware > subSubIssuesCODIS
+		case "CODIS says 'Out of memory'":
+			document.getElementById("rightSupportPanel").innerHTML = "If CODIS displays an <b>&quot;Out of Memory&quot;</b> error message, please report this issue to <a href='*'>Support</a>."
+			break;
+		case "Other CODIS issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to CODIS, please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesFRTIBSoftware > subSubIssuesDeDIS
+		case "DeDIS says 'Out of memory'":
+			document.getElementById("rightSupportPanel").innerHTML = "If DeDIS displays an <b>&quot;Out of Memory&quot;</b> error message, please report this issue to <a href='*'>Support</a>."
+			break;
+		case "Other DeDIS issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to DeDIS, please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesFRTIBSoftware > subSubIssuesDocXP
+		case "DocXP User Guide":
+			document.getElementById("rightSupportPanel").innerHTML = "This content is currently unavailable."
+			break;
+		case "DocXP login credentials":
+			document.getElementById("rightSupportPanel").innerHTML = "Your login credentials should be as follows:<ul><li><b>User Name</b>: Enter your SINT ID number.</li><li><b>Password</b>: Enter the same password used for logging into PSR.</li></ul>"
+			break;
+		case "Error code '5'":
+			document.getElementById("rightSupportPanel").innerHTML = "If you receive error code number <b>&quot;5&quot;</b> after logging in to DocXP, try the following steps to fix the issue:<ol><li>Map the network drives before logging on to DocXP by double-clicking the &quot;Map DeDIS ATS & LPU Drives&quot; icon on your desktop.<br><img src='Images/Map_DeDIS_Icon.jpg' height='80' alt='DeDIS icon'></li><li>In the resulting <i>Map My Shared Drives</i> window, enter your <b>SANDD ID</b> and <b>Password</b>, and then click <b>OK</b>.<br><img class='border' src='Images/SANDD_login.jpg' height='125' alt='SANDD login'></li></ol>"
+			break;
+		case "DocXP malfunctioning":
+			document.getElementById("rightSupportPanel").innerHTML = "<b>NOTE:</b> Slow processing speeds and delays commonly occur while using DocXP. <p>If DocXP is not functioning properly, please contact <a href='*'>Support</a>.</p>"
+			break;
+
+		//issuesSoftware > subIssuesFRTIBSoftware > subSubIssuesPSR
+		case "PSR User Manual":
+			document.getElementById("rightSupportPanel").innerHTML = "This content is currently unavailable."
+			break;
+		case "PSR not loading":
+			document.getElementById("rightSupportPanel").innerHTML = "If PSR is not loading properly...<ol><li>Open Internet Explorer&nbsp;&nbsp;<img class='inline' src='Images/arrow-standard.gif' height='10' alt='arrow'>&nbsp;&nbsp;click the <b>Tools</b>&nbsp; <img class='inline' src='Images/IE_Tools_icon.jpg' alt='Tools icon'> icon on the top-right	<img class='inline' src='Images/arrow-standard.gif' height='10' alt='arrow'>	select <b>Internet Options</b>.</li><li>On the <i>Internet Options</i> window, click <b>Delete...</b> located under <i>Browsing History</i>.<br><img src='Images/IE_Internet_Options.jpg' height='400' alt='Internet Options'></li><li>On the <i>Delete Browsing History</i> window, deselect <b>Preserve Favorites website data</b>, select all other options, and then click <b>Delete</b>.<br><img src='Images/IE_Delete_History.jpg' height='400' alt='Delete History window'></li><li>Close all Internet Explorer windows and tabs, and then reload PSR.</li><li>If still unable to log into PSR, contact <a href='*'>Support</a>.</li></ol>"
+			break;
+		case "Other PSR issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to PSR, please contact <a href='*'>Support</a>."
+			break;
+		
+		//issuesSoftware > subIssuesFRTIBSoftware > subSubIssuesSANDD
+		case "Reset SANDD password":
+			document.getElementById("rightSupportPanel").innerHTML = "For issues with your SANDD password, go to <b>Passwords</b>	<img class='inline' src='Images/arrow-standard.gif' height='10' alt='arrow'>	<b>FRTIB-system passwords</b>	<img class='inline' src='Images/arrow-standard.gif' height='10' alt='arrow'>	<b>SANDD password</b>	<img class='inline' src='Images/arrow-standard.gif' height='10' alt='arrow'>	and make a selection based on your password's expiration status.<br><img src='images/resetSANDDPass.png'>"
+			break;
+		case "Unable to map to shared drives":
+			document.getElementById("rightSupportPanel").innerHTML = "If you're unable to successfully map to a shared drive, please contact <a href='*'>Support</a>.<br><br>"
+			break;
+
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesAcrobat
+		case "Creating a digital signature":
+			document.getElementById("rightSupportPanel").innerHTML = "This content is currently unavailable."
+			break;
+		
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesDeltek
+		case "Deltek malfunctioning":
+			document.getElementById("rightSupportPanel").innerHTML = "If the Deltek timesheet website is not functioning properly, please contact <a href='*'>Support</a>."
+			break;
+		case "Charge codes":
+			document.getElementById("rightSupportPanel").innerHTML = "For any questions about charge codes, please contact your direct supervisor."
+			break;
+		case "Change current Deltek password":
+			document.getElementById("rightSupportPanel").innerHTML = "If you're unable to successfully log into Deltek Time & Expense, this may be due to your corporate password being expired. To create a new corporate password, use Serco's <a href='*'>Password Manager</a> to reset your password."
+			break;
+
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesIE
+		case "'The page cannot be displayed'":
+			document.getElementById("rightSupportPanel").innerHTML = "In Internet Explorer (IE), if you receive a screen that says &quot;This page cannot be displayed&quot;, or if you're having problems connecting to the Internet, please report the issue to <a href='*'>Support</a>."
+			break;
+		case "Other IE issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other questions or issues related to Internet Explorer (IE), please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesPassword > subIssuesSercoSoftware > subSubIssuesOutlook
+		case "Out-of-office message setup":
+			document.getElementById("rightSupportPanel").innerHTML = "The following instructions will show you how to set up MS Outlook to automatically send out-of-office responses.<ol><li>Open Outlook and go to <b>Tools</b>&nbsp;&nbsp;<img class='inline' src='Images/arrow-standard.gif' alt='arrow' class='arrow-standard'>&nbsp;&nbsp;<b>Out of Office Assistant...</b></li><img class='border' src='Images/Ms Outlook/Outlook_outOfOfficeAssistant-0.png' alt='Tools Menu'><li>Select <b>Send Out of Office auto-replies</b>.</li><li>Click the checkbox next to <b>Only send during this time range:</b></li><li>Set the <b>Start time</b> and <b>End time</b> for how long you will be away from the office.</li><img src='Images/Ms Outlook/Outlook_outOfOfficeAssistant-1.png' alt='Out of Office Assistant' height='450'><li>Enter the message you would like to have as your auto-reply</li><img src='Images/Ms Outlook/Outlook_outOfOfficeAssistant-2.png' alt='Message Body' height='450'><li>From here you can either click <b>OK</b>, or go to <b>Rules...</b> to set up	customizations for your auto-reply.</li><li>If you decided to customize your auto-reply by clicking <b>Rules...</b>, the Out of Office Rules box will appear. Click <b>Add Rule...</b></li><img src='Images/Ms Outlook/Outlook_outOfOfficeAssistant-3.png' alt='Out of Office Rules'><li>Creating a new rule in the Edit Rule box is much like forming an &quot;If...then&quot; statement. The top half is the &quot;If&quot; and the lower half is the &quot;then&quot;. For instance, &quot;If a message arrives that has the word 'RBCO' in the <b>Subject</b>, then <b>Move to</b> the 'RBCO' folder.&quot; There are numerous rules you can create, so create rules that work best for you.</li><img src='Images/Ms Outlook/Outlook_outOfOfficeAssistant-4.png' alt='Edit Rule' height='450'></ol>"
+			break;
+		case "How to access Webmail":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+		case "Creating a signature block":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+	case "Setting up a meeting":
+		document.getElementById("rightSupportPanel").innerHTML = "The following instructions will show you how to use MS Outlook 2010 to schedule a meeting, and how to reserve a room for that meeting.<p><ol><li>In Outlook, click <b>Calendar</b> located on the bottom-left of the window.</li><img class='border' src='Images/MS Outlook/Meeting1.png' alt='Calendar'><li>Go to the <b>Home</b> tab and click <b>New Meeting</b>.</li><img class='border' src='Images/MS Outlook/Meeting2.png' alt='New Meeting'><li>Click <b>Rooms...</b> next to <b>Location</b>.</li><img class='border' src='Images/MS Outlook/Meeting3.png' alt='Rooms...'><li>On the <i>Select Rooms: All Rooms</i> window, double-click the desired room and click <b>OK</b>.</li><img class='border' src='Images/MS Outlook/Meeting4.png' alt='Select Rooms: All Rooms'><li>In the <b>To...</b> field, you can enter the email address of each attendee or click <b>To...</b> to search for them.</li><li>Enter the <b>Subject</b> of your meeting.</li><li>Select a <b>Start time</b> and <b>End time</b>.</li><img class='border' src='Images/MS Outlook/Meeting5.png' alt='Meeting details'><li>If the meeting will repeat on a regular schedule...</li><ol><li>Click <b>Recurrence</b> located in the <b>Options</b> grouping of the <b>Meeting</b> tab.</li><img class='border' src='Images/MS Outlook/Meeting6.png' alt='Recurrence'><li>On the <i>Appointment Recurrence</i> window, enter the desired information, and click <b>OK</b>.</li><img class='border' src='Images/MS Outlook/Meeting7.png' alt='Appointment Recurrence'></ol><li>Review your meeting one last time:</li><ul style='list-style-type:none; padding-left:0'><li><input type='checkbox'>&nbsp;Does the <b>To...</b> field show all atendees, including the room name?</li><li><input type='checkbox'>&nbsp;Is the <b>Subject</b> short, but descriptive?</li><li><input type='checkbox'>&nbsp;Does the <b>Location</b> show your desired meeting room?</li><li><input type='checkbox'>&nbsp;Did you set the <b>Start time</b> and <b>End time</b>?</li><li><input type='checkbox'>&nbsp;Did you provide all necessary information about the meeting?</li></ul><li>If you checked off all of the above, click <b>Send</b>!</li></ol>"
+		break;
+	
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesOurWorld
+		case "Unable to log into OurWorld":
+			document.getElementById("rightSupportPanel").innerHTML = "If you're unable to successfully log into <a href='*'>OurWorld</a>, this may be due to your corporate password being expired. To create a new password, go to Serco's <a href='*'>Password Manager</a> and follow the instructions."
+			break;
+		case "Other OurWorld issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to OurWorld,	please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesSecureZIP
+		case "Encrypting email attachments":
+			document.getElementById("rightSupportPanel").innerHTML = "The following instructions will show you how to use SecureZIP to zip, encrypt, and attach files to e-mail messages in Microsoft Outlook.<ol><li>From your desktop, click the <img class='inline' src='Images/SecureZIP/StartIcon.gif' height='25px' alt='Start icon'> icon, and then click <b>Computer</b>.</li><img src='Images/SecureZIP/StartMenuRight.png'><li>Navigate to the file you're encrypting (in this example, the file name is &quot;PII.xl&quot; and is located in the <i>Downloads</i> folder).</li><img class='border' src='Images/SecureZIP/ComputerMenu.png' height='300px' alt='File Explorer'><li>Once you locate the file...<ol style='list-style-type: lower-alpha'><li>Select it, and then right-click it to open the context menu.</li><li>Hover the cursor over <b>SecureZIP</b>, and then select <b>Add to New Archive...</b></li></ol></li><img src='Images/SecureZIP/ContextMenu.png' height='500px' alt='Context Menu'><li>You will be prompted to save the new archive (ZIP file) somewhere.<ol style='list-style-type: lower-alpha'><li>Navigate to where you'd like to save the new ZIP file.</li><li>If you would like to change the name of the new ZIP file, type the name into the <b>File name</b> field.</li><li>Click <b>Save</b>.</li></ol></li><img src='Images/SecureZIP/SaveArchiveAs.png' alt='Save Archive As' height='400px'><li>The <i>Enter Phrase and/or Choose Recipients for Encryption</i> dialog box will prompt you to enter a passphrase.<ol style='list-style-type: lower-alpha'><li>Type in the designated FRTIB encryption password into the <b>Passphrase</b> field.</li><li>Type in the password once more into the <b>Confirm passphrase</b> field.</li><li>Click <b>OK</b>.</li></ol></li><img src='Images/SecureZIP/CreatePassphrase.png' alt='Enter Passphrase dialog box' height='400px'><li>The new ZIP file should now appear where you saved it.</li<img class='border' src='Images/SecureZIP/FileZipped.png' alt='Saved ZIP file' height='100px'><li>Open the new ZIP file to confirm it was properly encrypted.</li><li>Click <b>Yes</b> when SecureZIP asks <i>&quot;Do you want to open this file?&quot;</i></li><li>Enter the designated FRTIB encryption password into the <b>Passphrase</b> field. If the file opens, this means you have successfully encrypted the file.</li><img src='Images/SecureZIP/EnterPassphrase.png' alt='Enter Passphrase' height='200px'><li>Close the file.</li><li>Click <b>Cancel</b> on the <i>Enter Passphrase and/or Choose Recipients for Encryption</i> dialog box.</li><li>Click <b>Close</b> on the <i>Log</i> dialog box.</li><img src='Images/SecureZIP/Log.png' alt='Log' height='250px'><li>You are now safe to e-mail the file.</li></ol>"
+			break;
+		case "Other SecureZIP issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to SecureZIP, please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesSEP
+		case "Out-of-date antivirus definitions":
+			document.getElementById("rightSupportPanel").innerHTML = "If your computer says that Symantec's Endpoint Protection (SEP) antivirus definitions are out-of-date...<ol><li>Go to <b>Start</b>&nbsp;&nbsp;<img class='inline' src='Images/arrow-standard.gif' height='10' alt='arrow'>&nbsp;&nbsp;<b>All Programs</b>&nbsp;&nbsp;<img class='inline' src='Images/arrow-standard.gif' height='10' alt='arrow'>&nbsp;&nbsp;<b>Symantec Endpoint Protection</b>.<br><img src='Images/SEP_Start.jpg' height='350' alt='Symantec Endpoint Protection location'></li><li>Click <b>LiveUpdate...</b> to manually update SEP.<br><img src='Images/SEP_Main.jpg' height='350' alt='Symantec Endpoint Protection main screen'></li><li>Once LiveUpdate has finished downloading and updating antivirus definitions, it should say &quot;LiveUpdate session is complete.&quot;<br><img src='Images/SEP_Complete.jpg' height='350' alt='Update complete!'></li><li>If the update won't complete, or if the update completes but the computer continues to say antivirus definitions are out-of-date, then contact the <a href='*'>Support</a>.</li></ol>"
+			break;
+		case "Other SEP issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to Symantec Endpoint Protection (SEP), please contact the <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesSEE
+		case "Unable to log on":
+			document.getElementById("rightSupportPanel").innerHTML = "If you're unable to log onto Symantec Endpoint Encryption (SEE)...<ol><li>Confirm the <b>User Type</b> field says &quot;Registered User&quot;.</li><li>Confirm the <b>Domain</b> field says &quot;FAIROAKS&quot;.</li><li>If both fields are correct, but you're still unable to log on, then contact the <a href='*'>Support</a>.</li></ol>"
+			break;
+		case "Other SEE issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues or questions related to Symantec Endpoint Encryption (SEE), please contact <a href='*'>Support</a>."
+			break;
+
+		//issuesSoftware > subIssuesSercoSoftware > subSubIssuesSharePoint
+		case "SharePoint overview":
+			document.getElementById("rightSupportPanel").innerHTML = "Content is currently unavailable."
+			break;
+		case "Other SharePoint issue":
+			document.getElementById("rightSupportPanel").innerHTML = "For all other issues related to SharePoint, please report your problem to <a href='*'>Support</a>."
+			break;
+
+		//issuesPassword > subIssuesFRTIBPassword > subSubIssuesSANDDpass
+		case "Change current SANDD password":
+			document.getElementById("rightSupportPanel").innerHTML = "If your password has <u>not expired</u>...<ol><li>Go to the <a href='*' target='_blank'>SANDD Domain Password Change Tool</a>.</li><li>Scroll to the bottom of the screen and click the link that says, <b>Change SANDD Domain Password</b>.<br><img class='border' src='Images/changeSANDD.jpg' height='45' alt='Change SANDD Domain Password'></li><li>On the resulting <i>Domain Password Change Tool</i>, enter your <b>Account user name</b> (e.g., &quot;SANDD&#92;SINT123&quot;), <b>Current password</b>, <b>New password</b>, and then <b>Confirm new password</b>.</li><li>Click <b>Submit</b>.<br><img class='border' src='Images/SANDD_Password_Change.jpg' height='350' alt='Domain Password Change Tool'></li><li>If your password meets security requirements, then you will receive the message below. Otherwise, you will need to modify your new password until it meets security requirements.<br><img class='border' src='Images/SANDD_Password_Success.jpg' height='50' alt='Success!'></li><li>To see a list of password security requirements, go back to the <a href='*'>password information screen</a>.</li></ol>"
+			break;
+		case "Change expired SANDD password":
+			document.getElementById("rightSupportPanel").innerHTML = "If your password has <u>already expired</u>, please inform <a href='*'>Support</a>, and let them know that you would like to reset your password."
+			break;
+
+		default:
+	}
+}
+
+</script>
+</head>
+
+<body>
+		
+<header id="pageTitle">
+	<h1>OpSupport</h1>
+	<img src="Logo/opsite167w.png">
+</header>
+
+<nav id="menuBar">
+	<ul id="menu">
+		<li><a href="index.html" alt="Homepage" title="Homepage">Home</a></li>
+		<li><a href="Support.html" alt="OpSupport" title="OpSupport">OpSupport</a></li>
+		<li><a title="Community">Community</a>
+			<ul>
+				<li><a href="Announcements.html" alt="Announcements">Announcements</a></li>
+				<li><a href="Memory_Gallery.html" alt="Memory Gallery">Memory Gallery</a></li>
+				<li><a href="Reference_Newsletters.html" alt="Newsletters">Newsletters</a></li>
+			</ul>
+		</li>
+		<li><a title="Reference">Reference</a>
+			<ul>
+				<li><a href="Reference_Abbreviations.html" alt="Abbreviations">Abbreviations</a></li>
+				<li><a href="Reference_Glossary.html" alt="Glossary">Glossary</a></li>	
+				<li><a href="Docs/Writing_for_the_FRTIB.pdf" target="Docs/Writing_for_the_FRTIB.pdf"	alt="FRTIB Style Guide">FRTIB Style Guide</a></li>
+			</ul>
+		</li>
+		<li><a title="Contacts">Contacts</a>
+			<ul>
+				<li><a href="Contacts_OpsCenter.html" alt="Ops Center Contacts">Ops Center</a></li>
+				<li><a href="Contacts_FRTIB.html" alt="FRTIB Contacts">FRTIB</a></li>
+				<li><a href="Contacts_Support.html" alt="Support Contacts">Support</a></li>
+				<li><a href="Contacts_Other.html" alt="Other Contacts">Other</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+<!--Main body-->
+
+<div class="container">
+	<article id="supportWrapper">
+		
+	<!--First dropdown box-->
+		<table id="supportTable">
+			<tr>
+				<td id="leftSupportPanel">
+			<!--Topics-->
+					<select id='topics' name='topics' onchange='topicChanged(this.value);'>
+						<option value='Select' selected>- Select a topic -</option>
+						<option value='Passwords'>Passwords</option>
+						<option value='Hardware'>Hardware</option>
+						<option value='Software'>Software</option>							
+						<option value='Security'>Security</option>
+						<option value='OfficeSpaces'>Office Spaces</option>
+						<option value='Bathroom'>Bathrooms</option>
+						<option value='Kitchen'>Kitchens</option>
+						<option value='Supplies'>Supplies</option>
+						<option value='Training'>Training</option>
+					</select><br><br>
+
+					<select id='issues' onchange='issueChanged(this.value);'>
+						<option>--</option>
+					</select><br><br>
+
+					<select id='subIssues' onchange='subIssueChanged(this.value);'>
+						<option>--</option>
+					</select><br><br>
+
+					<select id='subSubIssues' onchange='subSubIssueChanged(this.value);'>
+						<option>--</option>
+					</select><br><br>
+				</td>
+
+				<td id="rightSupportPanel">
+					<p style="margin-bottom: 1em">OpSupport is a tool to assist you with your office problems. If you're not sure how to solve your issue or who to contact, please use the dropdown menus on the left to find support information. If you <b>do</b> know who to contact, please refer to the contact information below.</p>
+					<table id="contactTable">
+						<tr>
+							<th>Function name</th>
+							<th>Function name</th>
+							<th>Function name</th>
+						</tr>
+						<tr>
+							<td><a href="*">Email address</a><br>Phone number<br></td>
+							<td><a href="*">Email address</a><br>Phone number<br></td>
+							<td><a href="*">Email address</a><br>Phone number<br></td>
+						</tr>
+						<tr>
+							<td>Function description</td>
+							<td>Function description<br></td>
+							<td>Function description</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</article>
+</div>
+
+<footer class="copyright">
+	<p class="copyDate">&#169;2019 Alan Strom</p>
+	<p class="contact">Changes? Suggestions? Contact <a href="*">OpSite</a>!</p>
+</footer>
+
+</body>
+</html>
